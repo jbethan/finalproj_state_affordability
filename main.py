@@ -68,13 +68,13 @@ df_new.head()
 ## Group 3 - RENT
 
 # Average Rent Price & Sq Ft by State
-url = "https://www.rentcafe.com/average-rent-market-trends/us/?t=638379614756101989&role=renter"
-response = requests.get(url)
-print(response.status_code)
+url = 'https://raw.githubusercontent.com/jbethan/finalproj_state_affordability/main/2023_average_rent_by_state.csv'
+df_rent = pd.read_csv(url)
+df_rent.head()
 
 # %%
-soup = BeautifulSoup(response.text, 'html.parser')
-table = soup.find_all("table")
+df_new = df_new.merge(df_rent, how = 'left', on = "State")
+df_new.head()
 
 # %%
 df_avg_rent= pd.read_html(str(table))
