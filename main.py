@@ -5,8 +5,87 @@ from bs4 import BeautifulSoup
 from mortgage import Loan
 import re
 
+# %% 
+### DATA COLLECTION ###
+### Group 1 - INCOME 
+
+# Average Salary by State
+url = "https://www.newtraderu.com/2023/11/01/average-income-by-state/"
+response = requests.get(url)
+print(response.status_code)
+
 # %%
-# Median Sale Price by State
+soup = BeautifulSoup(response.text, 'html.parser')
+table = soup.find_all("table")
+
+# %%
+lst = pd.read_html(str(table))
+df_avg_sal = lst[0]
+df_avg_sal.head()
+
+# %%
+### Group 2 - TAX RATES
+
+# Tax Burden by State
+#!!! IP ADDRESS BLOCKED - Use Backup CSV file !!!
+#url = "https://wallethub.com/edu/states-with-highest-lowest-tax-burden/20494"
+#response = requests.get(url)
+#print(response.status_code)
+
+# %%
+#soup = BeautifulSoup(response.text, 'html.parser')
+#table = soup.find_all("table")
+
+# %%
+#df_tax = pd.read_html(str(table))
+# convert list to dataframe
+#df_tax = pd.DataFrame(df_tax[0])
+#df_tax.head()
+
+# %%
+#df_tax = df_tax.drop(['Overall Rank*'], axis=1)
+#df_new = df_new.merge(df_tax, how = 'left', on = "State")
+
+# %%
+# Clean up new DF
+#cols = ['Property Tax Burden (%)', 'Individual Income Tax Burden (%)', 'Total Sales & Excise Tax Burden (%)']
+#df_new[cols] = df_new[cols].replace('%\s\D\d+\D', '', regex = True).astype(float)
+#df_new['Total Tax Burden (%)'] = df_new['Total Tax Burden (%)'].replace('%', '', regex = True).astype(float)
+#df_new['Price'] = df_new['Price'].replace('\D', '', regex = True).astype(float)
+#df_new.head()
+
+# %%
+# BACK UP CSV File for Tax Rate
+url = 'https://raw.githubusercontent.com/jbethan/finalproj_state_affordability/main/2023_tax_burden_backup.csv'
+df_tax = pd.read_csv(url)
+df_tax.head()
+
+# %%
+df_new = df_avg_sal.merge(df_tax, how = 'left', on = "State")
+df_new.head()
+
+# %%
+## Group 3 - RENT
+
+# Average Rent Price & Sq Ft by State
+url = "https://www.rentcafe.com/average-rent-market-trends/us/?t=638379614756101989&role=renter"
+response = requests.get(url)
+print(response.status_code)
+
+# %%
+soup = BeautifulSoup(response.text, 'html.parser')
+table = soup.find_all("table")
+
+# %%
+df_avg_rent= pd.read_html(str(table))
+# convert list to dataframe
+df_avg_rent= pd.DataFrame(df[0])
+df_avg_rent.head()
+
+# %%
+# GROUP 4 - HOME OWNERSHIP
+
+# Median House Price by State
 url = "https://www.bankrate.com/real-estate/median-home-price/#median-price-by-state"
 response = requests.get(url)
 print(response.status_code)
@@ -16,35 +95,17 @@ soup = BeautifulSoup(response.text, 'html.parser')
 table = soup.find_all("table")
 
 # %%
-df = pd.read_html(str(table))
+df_med_house= pd.read_html(str(table))
 # convert list to dataframe
-df = pd.DataFrame(df[0])
-df.head()
+df_med_house= pd.DataFrame(df[0])
+df_med_house.head()
 # %%
-#df = df.sort_values(by="Price", ascending = False)
-#df['rank'] = df['Price'].rank(ascending = False)
-#df
-
-
-# %% 
-# Average Salary by State
-url = "https://www.newtraderu.com/2023/11/01/average-income-by-state/"
-response = requests.get(url)
-print(response.status_code)
+#df_med_house= df_med_house.sort_values(by="Price", ascending = False)
+#df_med_house['rank'] = df_med_house['Price'].rank(ascending = False)
+#df_med_house
 
 # %%
-soup = BeautifulSoup(response.text, 'html.parser')
-table2 = soup.find_all("table")
-
-# %%
-lst = pd.read_html(str(table2))
-#df2 = pd.read_html(table2)
-df2 = lst[0]
-df2.head()
-
-
-# %%
-df_new = df.merge(df2, how = 'left', on = "State")
+df_new = df_med_house.merge(df_avg_sal, how = 'left', on = "State")
 # Massuchasetts in Original Dataset but Dropped from Table on Accident
 df_new.at[21, "Annual Average Wage"] = '$76,600'
 df_new.at[21, "Average Hourly Wage"] = '$36.83'
@@ -62,45 +123,6 @@ df_new[cols]= df_new[cols].replace('\$', '', regex = True)
 df_new[cols]= df_new[cols].replace(',', '', regex = True).astype(float)
 
 # %%
-# Tax Burden by State
-# IP ADDRESS BLOCKED - Use Backup CSV file
-#url = "https://wallethub.com/edu/states-with-highest-lowest-tax-burden/20494"
-#response = requests.get(url)
-#print(response.status_code)
-
-# %%
-#soup = BeautifulSoup(response.text, 'html.parser')
-#table3 = soup.find_all("table")
-
-# %%
-#df3 = pd.read_html(str(table3))
-# convert list to dataframe
-#df3 = pd.DataFrame(df3[0])
-#df3.head()
-
-# %%
-#df3 = df3.drop(['Overall Rank*'], axis=1)
-#df_new = df_new.merge(df3, how = 'left', on = "State")
-
-
-# %%
-# Clean up new DF
-#cols = ['Property Tax Burden (%)', 'Individual Income Tax Burden (%)', 'Total Sales & Excise Tax Burden (%)']
-#df_new[cols] = df_new[cols].replace('%\s\D\d+\D', '', regex = True).astype(float)
-#df_new['Total Tax Burden (%)'] = df_new['Total Tax Burden (%)'].replace('%', '', regex = True).astype(float)
-#df_new['Price'] = df_new['Price'].replace('\D', '', regex = True).astype(float)
-#df_new.head()
-
-# %%
-# BACK UP CSV File
-df3 = pd.read_csv("2023_tax_burden_backup.csv")
-df3.head()
-
-# %%
-df_new = df_new.merge(df3, how = 'left', on = "State")
-df_new.head()
-
-# %%
 # Calculate Mortgage Loan Amount
 # Assume FHA
 df_new['Mortgage Amount'] = df_new['Price'] * .965
@@ -115,18 +137,17 @@ print(response.status_code)
 
 # %%
 soup = BeautifulSoup(response.text, 'html.parser')
-table4 = soup.find_all("table")
+table = soup.find_all("table")
 
 # %%
-lst4 = pd.read_html(str(table4))
+lst = pd.read_html(str(table))
 # convert list to dataframe
-#df4 = pd.DataFrame(df[0])
-df4 = lst4[0]
-df4
+df_morg_rate = lst[0]
+df_morg_rate
 
 # %%
-fha_rate = df4.iloc[4,1].replace('%', '')
-(var, date) = df4.columns[0]
+fha_rate = df_morg_rate.iloc[4,1].replace('%', '')
+(var, date) = df_morg_rate.columns[0]
 date = re.match('\d+\D\d+\D\d{2}', date).group()
 
 col_name = "FHA Rate as of {}".format(date)
@@ -135,7 +156,7 @@ df_new["Mortgage Term"] = 30
 df_new.head()
 
 # %%
-df5 = pd.read_csv('2023_home_insurance_rates_by_state.csv')
+df_house_ins = pd.read_csv('2023_home_insurance_rates_by_state.csv')
 
 df_new["Annual Home Insurance"] = ''
 
@@ -145,16 +166,16 @@ for i in range(len(df_new)):
     loan = df_new.loc[i, "Mortgage Amount"]
 
     if loan < 300000:
-        rate = df5.loc[df5['State'] == state, 'Rate at $200k'].values.squeeze()
+        rate = df_house_ins.loc[df_house_ins['State'] == state, 'Rate at $200k'].values.squeeze()
         df_new.loc[i,"Annual Home Insurance"] = loan * rate
     elif loan < 400000:
-        rate = df5.loc[df5['State'] == state, 'Rate at $300k'].values.squeeze()
+        rate = df_house_ins.loc[df_house_ins['State'] == state, 'Rate at $300k'].values.squeeze()
         df_new.loc[i,"Annual Home Insurance"] = loan * rate
     elif loan < 500000:
-        rate = df5.loc[df5['State'] == state, 'Rate at $400k'].values.squeeze()
+        rate = df_house_ins.loc[df_house_ins['State'] == state, 'Rate at $400k'].values.squeeze()
         df_new.loc[i,"Annual Home Insurance"] = loan * rate
     else:
-        rate = df5.loc[df5['State'] == state, 'Rate at $500k'].values.squeeze()
+        rate = df_house_ins.loc[df_house_ins['State'] == state, 'Rate at $500k'].values.squeeze()
         df_new.loc[i,"Annual Home Insurance"] = loan * rate
 
 # %%
