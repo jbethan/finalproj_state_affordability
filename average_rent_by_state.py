@@ -33,6 +33,10 @@ df.head()
 
 #%%
 # Read to CSV
-df.to_csv('2023_average_rent_by_state.csv')
+df.to_csv('C:\\Users\\betha\\Documents\\stat386\\finalproj_state_affordability\\2023_average_rent_by_state.csv', index=None)
 # %%
-driver.closer()
+driver.close()
+
+# %%
+df
+# %%
