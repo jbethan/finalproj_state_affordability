@@ -33,5 +33,6 @@ df.head()
 
 #%%
 # Read to CSV
-df.to_csv('2023_average_rent_by_state.csv', index=None)
+df.to_csv('2023_average_rent_by_state.csv')
 # %%
+driver.closer()
