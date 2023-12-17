@@ -24,6 +24,7 @@ fig1 = px.bar(data, x='State',
 
 # Show the plot
 fig1.show()
+fig1.write_html('Income_Comp.html')
 
 # %%
 # 25% Percentile Data Salary to Median Salary in State
