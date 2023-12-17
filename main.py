@@ -94,19 +94,54 @@ updated_date = soup.find('div', {'class': "last-updated-date"}).text
 updated_date = updated_date.strip('Updated ')
 updated_date = datetime.strptime(updated_date, "%B %d, %Y")
 updated_date = updated_date.strftime("%m/%d/%y")
-date = updated_date.astype(str)
-
+print(updated_date)
 
 # %%
-col_name = "Data Analyst Job Count as of ".format(updated_date.strftime("%m/%d/%y"))
+col_name = "Data Analyst Job Count as of {}".format(str(updated_date))
 df_analyst_sal = df_analyst_sal.rename(columns={"Job Count" : col_name})
-df_analyst_sal
+df_analyst_sal.head()
 
 # %%
 df_new = df_new.merge(df_analyst_sal, how = 'left', on = "State")
 df_new.head()
-# %%
 
+# %%
+# Scrape Data Scientist Average Salary by State
+url = "https://www.zippia.com/data-scientist-jobs/salary/"
+response = requests.get(url)
+print(response.status_code)
+
+# %%
+soup = BeautifulSoup(response.text, 'html.parser')
+table = soup.find_all("table")
+
+# %%
+lst = pd.read_html(str(table))
+df_scientist_sal = lst[0]
+df_scientist_sal.head()
+
+# %%
+# Clean up
+cols = ['Avg. Salary', 'Hourly Rate']
+df_scientist_sal[cols]= df_scientist_sal[cols].replace('\$', '', regex = True)
+df_scientist_sal[cols]= df_scientist_sal[cols].replace(',', '', regex = True).astype(float)
+df_scientist_sal = df_scientist_sal.drop(["Rank"], axis=1)
+df_scientist_sal = df_scientist_sal.rename(columns={"Avg. Salary" : "Data Scientist Average Salary"})
+df_scientist_sal = df_scientist_sal.rename(columns={"Hourly Rate" : "Data Scientist Hourly Rate"})
+
+# %%
+updated_date = soup.find('div', {'class': "last-updated-date"}).text
+updated_date = updated_date.strip('Updated ')
+updated_date = datetime.strptime(updated_date, "%B %d, %Y")
+updated_date = updated_date.strftime("%m/%d/%y")
+
+col_name = "Data Scientist Job Count as of {}".format(str(updated_date))
+df_scientist_sal = df_scientist_sal.rename(columns={"Job Count" : col_name})
+df_scientist_sal.head()
+
+# %%
+df_new = df_new.merge(df_scientist_sal, how = 'left', on = "State")
+df_new.head()
 
 # %%
 ### GROUP 3 - TAX RATES
@@ -149,6 +184,8 @@ df_tax.head()
 df_new = df_new.merge(df_tax, how = 'left', on = "State")
 df_new = df_new.rename(columns={"Individual Income Tax Burden" : "Income Tax Burden"})
 df_new = df_new.rename(columns={"Total Sales & Excise Tax Burden" : "Sales Tax Burden"})
+df_new = df_new.rename(columns={"Total Tax Burden_x": "Total Tax Burden"})
+df_new = df_new.rename(columns={"Property Tax Burden_x": "Property Tax Burden"})
 df_new.head()
 
 # %%
@@ -194,13 +231,13 @@ fha_rate = df_morg_rate.iloc[4,1].replace('%', '')
 date = re.match('\d+\D\d+\D\d{2}', date).group()
 
 col_name = "FHA Rate as of {}".format(date)
-df_new[col_name] = fha_rate
+df_new[col_name] = float(fha_rate)
 df_new["Mortgage Term"] = 30
 df_new.head()
 
 # %%
 # GROUP 6 - HOME INSURANCE (Scraped in home_insurance_by_state.py)
-df_house_ins = pd.read_csv('2023_home_insurance_rates_by_state.csv')
+df_house_ins = pd.read_csv('https://raw.githubusercontent.com/jbethan/finalproj_state_affordability/main/2023_home_insurance_rates_by_state.csv')
 
 df_new["Annual Home Insurance"] = ''
 
@@ -223,6 +260,7 @@ for i in range(len(df_new)):
         rate = df_house_ins.loc[df_house_ins['State'] == state, 'Rate at $500k'].values.squeeze()
         df_new.loc[i,"Annual Home Insurance"] = loan * rate
 
+df_new["Annual Home Insurance"] = df_new["Annual Home Insurance"].astype(float)
 ### DATA WRANGLING
 # %%
 # Calculate Monthly Mortgage Cost
@@ -235,6 +273,7 @@ df_new["Monthly Mortgage Cost"] = ''
 # %%
 rate_col = "FHA Rate as of {}".format(date)
 df_new.loc[0,"Mortgage Term"]
+
 # %%
 for i in range(len(df_new)):
     rate_col = "FHA Rate as of {}".format(date)
@@ -247,6 +286,7 @@ for i in range(len(df_new)):
 # %%
 # Calculate Monthly PMI Cost
 df_new['PMI (@1.5%)'] = df_new['Monthly Mortgage Cost'] * 0.015
+df_new['PMI (@1.5%)'] = df_new['PMI (@1.5%)'].astype(float)
 
 # %%
 # Calculate total Monthly House Payment
@@ -259,31 +299,68 @@ for i in range(len(df_new)):
     df_new.loc[i,"Monthly House Payment"] = m_mortgage + m_propertytx + m_pmi + m_insurance
     #print(df_new.loc[i, 'State'], m_propertytx, m_pmi, m_insurance)
 
+df_new["Monthly House Payment"] = df_new["Monthly House Payment"].astype(float)
 # %%
 # Calculate Monthly Gross Income
 df_new["Monthly Gross Income"] = df_new["Annual Average Wage"]/12
 
-# %%
 # Calculate Income Adjusted for Taxes
 df_new["Monthly Tax Adjusted Income"] = ''
+
 for i in range(len(df_new)):
     salary = df_new.loc[i, "Annual Average Wage"]
-    if salary < 44725:
-        m_income = df_new.loc["Monthly Gross Income"]
-        m_statetx = df_new.loc[i, "Income Tax Burden"]/100
-        df_new.loc[i,"Monthly Tax Adjusted Income"] = m_income * (.88 - m_statetx)
-    elif salary < 95375:
-        m_income = df_new.loc["Monthly Gross Income"]
-        m_statetx = df_new.loc[i, "Income Tax Burden"]/100
-        df_new.loc[i,"Monthly Tax Adjusted Income"] = m_income * (.78 - m_statetx)
+    m_income = df_new.loc[i, "Annual Average Wage"]/12
+    m_statetx = df_new.loc[i, "Income Tax Burden"]/100
+
+    if salary < 44725.0:
+        df_new.loc[i,"Monthly Tax Adjusted Income"] = (m_income * (.88 - m_statetx))
+    elif salary < 95375.0 and salary >= 44725.0:
+        df_new.loc[i,"Monthly Tax Adjusted Income"] = (m_income * (.78 - m_statetx))
     else:
-        m_income = df_new.loc["Monthly Gross Income"]
-        m_statetx = df_new.loc[i, "Income Tax Burden"]/100
-        df_new.loc[i,"Monthly Tax Adjusted Income"] = m_income * (.88 - m_statetx)
+        df_new.loc[i,"Monthly Tax Adjusted Income"] = (m_income * (.76 - m_statetx))
 
 # %%
+# Calculate Data Analyst Monthly Gross Income
+df_new["Data Analyst Monthly Gross Income"] = df_new["Data Analyst Average Salary"]/12
+
+# Calculate Income Adjusted for Taxes
+df_new["Data Analyst Monthly Tax Adjusted Income"] = ''
+
+for i in range(len(df_new)):
+    salary = df_new.loc[i, "Data Analyst Average Salary"]
+    m_income = df_new.loc[i, "Data Analyst Average Salary"]/12
+    m_statetx = df_new.loc[i, "Income Tax Burden"]/100
+
+    if salary < 44725.0:
+        df_new.loc[i,"Data Analyst Monthly Tax Adjusted Income"] = (m_income * (.88 - m_statetx))
+    elif salary < 95375.0 and salary >= 44725.0:
+        df_new.loc[i,"Data Analyst Monthly Tax Adjusted Income"] = (m_income * (.78 - m_statetx))
+    else:
+        df_new.loc[i,"Data Analyst Monthly Tax Adjusted Income"] = (m_income * (.76 - m_statetx))
+
+# %%
+# Calculate Data Scientist Monthly Gross Income
+df_new["Data Scientist Monthly Gross Income"] = df_new["Data Scientist Average Salary"]/12
+
+# Calculate Income Adjusted for Taxes
+df_new["Data Scientist Monthly Tax Adjusted Income"] = ''
+
+for i in range(len(df_new)):
+    salary = df_new.loc[i, "Data Scientist Average Salary"]
+    m_income = df_new.loc[i, "Data Scientist Average Salary"]/12
+    m_statetx = df_new.loc[i, "Income Tax Burden"]/100
+
+    if salary < 44725.0:
+        df_new.loc[i,"Data Scientist Monthly Tax Adjusted Income"] = (m_income * (.88 - m_statetx))
+    elif salary < 95375.0 and salary >= 44725.0:
+        df_new.loc[i,"Data Scientist Monthly Tax Adjusted Income"] = (m_income * (.78 - m_statetx))
+    else:
+        df_new.loc[i,"Data Scientist Monthly Tax Adjusted Income"] = (m_income * (.76 - m_statetx))
+
+# %%    
 df_new.head()
 
 # %%
 # Create CSV file
-# df_new.to_csv('2023_state_dataset.csv')
+#df_new.to_csv('C:\\Users\\betha\\Documents\\stat386\\finalproj_state_affordability\\2023_state_dataset.csv')
+# %%
