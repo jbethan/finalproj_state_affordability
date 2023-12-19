@@ -38,10 +38,6 @@ format_dict = {'Median House Price':'${0:,.0f}', 'All Industry Average Salary':'
 data.style.format(format_dict).hide_index()
 
 # %%
-rent_data = data.loc[data['State']=="Alabama", ['State','Average Rent', 'Average Apartment Size']]
-rent_data.reset_index(drop=True)
-rent_data
-# %%
 # GROUP 1 PLOT INCOME METRICS
 
 # Graphs
@@ -276,9 +272,6 @@ fig6.update_layout(title="Average Rent v. Income",
                   plot_bgcolor="#F2EBDF"
                   )
 fig6.update_yaxes(autorange="reversed")
-fig6.add_trace(go.Scatter(y=data.State['Alabama'], mode = 'markers',
-                         marker_color = 'red',
-                         marker_size = 15))
 
 fig6.show()
 
@@ -408,12 +401,13 @@ fig9 = px.bar_polar(da_rent_tax, r="Tax Cost", theta="Abbr",
                    hover_data=["Tax Type"],
                    color_discrete_sequence= ["#4c5d7d", "#74b5ac"])
 
-fig9.update_polars(bgcolor="#F2EBDF"),
 fig9.update_layout(
     title = "Tax Burden (Data Analyst - Renter)",
     polar = dict(
         radialaxis = dict(showticklabels=False),
-        angularaxis = dict(showticklabels=True)), 
+        angularaxis = dict(showticklabels=True),
+        bgcolor="#F2EBDF" 
+        ),     
 )
 
 fig9.show()

@@ -6,9 +6,9 @@ import plotly.graph_objects as go
 import plotly.express as px
 from plotly.subplots import make_subplots
 
-st.set_page_config(layout="wide")
+st.set_page_config(page_title="Recently Graduated Data Professional Seeks Affordable Life", layout="wide")
 
-st.title="Recently Graduated Data Professional Seeks Affordable Life"
+st.header="Recently Graduated Data Professional Seeks Affordable Life"
 st.markdown('These data visualizations provide an exploratory of the affordability of each state to a recently graduated data professional. They focus on income and job availability, housing costs (rent and owned), and tax burden')
 
 st.markdown('Use the interactive graphs below to explore data by state.')
@@ -467,13 +467,13 @@ fig9 = px.bar_polar(da_rent_tax, r="Tax Cost", theta="Abbr",
                    hover_data=["Tax Type"],
                    color_discrete_sequence= ["#4c5d7d", "#74b5ac"])
 
-fig9.update_polars(bgcolor="#F2EBDF"),
 fig9.update_layout(
     title = "Tax Burden (Data Analyst - Renter)",
     polar = dict(
         radialaxis = dict(showticklabels=False),
-        angularaxis = dict(showticklabels=True)
-        ), 
+        angularaxis = dict(showticklabels=True),
+        bgcolor="#F2EBDF" 
+        ),   
 )
 
 col3.plotly_chart(fig9)
@@ -485,13 +485,13 @@ fig10 = px.bar_polar(da_own_tax, r="Tax Cost", theta="Abbr",
                    hover_data=["Tax Type"],
                    color_discrete_sequence= ["#4c5d7d", "#74b5ac", "#cff1f9"])
 
-fig10.update_polars(bgcolor="#F2EBDF"),
 fig10.update_layout(
-    title = "Tax Burden (Data Analyst - Home Owner)",
+    title = "Tax Burden (Data Analyst - Renter)",
     polar = dict(
         radialaxis = dict(showticklabels=False),
-        angularaxis = dict(showticklabels=True)
-    ),  
+        angularaxis = dict(showticklabels=True),
+        bgcolor="#F2EBDF" 
+        ),   
 )
 
 col4.plotly_chart(fig10)
@@ -504,13 +504,13 @@ fig11 = px.bar_polar(ds_rent_tax, r="Tax Cost", theta="Abbr",
                    hover_data=["Tax Type"],
                    color_discrete_sequence= ["#4c5d7d", "#74b5ac"])
 
-fig11.update_polars(bgcolor="#F2EBDF"),
 fig11.update_layout(
-    title = "Tax Burden (Data Scientist - Renter)",
+    title = "Tax Burden (Data Analyst - Renter)",
     polar = dict(
         radialaxis = dict(showticklabels=False),
-        angularaxis = dict(showticklabels=True)
-    ),  
+        angularaxis = dict(showticklabels=True),
+        bgcolor="#F2EBDF" 
+        ),   
 )
 
 col5.plotly_chart(fig11)
@@ -522,13 +522,13 @@ fig12 = px.bar_polar(ds_own_tax, r="Tax Cost", theta="Abbr",
                    hover_data=["Tax Type"],
                   color_discrete_sequence= ["#4c5d7d", "#74b5ac", "#cff1f9"])
 
-fig12.update_polars(bgcolor="#F2EBDF"),
 fig12.update_layout(
-    title = "Tax Burden (Data Scientist - Home Owner)",
+    title = "Tax Burden (Data Analyst - Renter)",
     polar = dict(
         radialaxis = dict(showticklabels=False),
-        angularaxis = dict(showticklabels=True)
-    ),  
+        angularaxis = dict(showticklabels=True),
+        bgcolor="#F2EBDF" 
+        ),   
 )
 
 col6.plotly_chart(fig12)
