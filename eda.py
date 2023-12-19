@@ -38,9 +38,9 @@ format_dict = {'Median House Price':'${0:,.0f}', 'All Industry Average Salary':'
 data.style.format(format_dict).hide_index()
 
 # %%
-income_data = data.loc[data['State']=="Alabama", ['State','Data Analyst Average Salary', 'Data Analyst Job Count as of 09/14/23', 'Data Scientist Average Salary', 'Data Scientist Job Count as of 09/14/23']]
-income_data.reset_index(drop=True)
-income_data
+rent_data = data.loc[data['State']=="Alabama", ['State','Average Rent', 'Average Apartment Size']]
+rent_data.reset_index(drop=True)
+rent_data
 # %%
 # GROUP 1 PLOT INCOME METRICS
 

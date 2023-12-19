@@ -7,6 +7,7 @@ import plotly.express as px
 from plotly.subplots import make_subplots
 
 st.set_page_config(page_title="Recently Graduated Data Professional Seeks Affordable Life", layout="wide")
+st.title="Recently Graduated Data Professional Seeks Affordable Life"
 st.markdown('These data visualizations provide an exploratory of the affordability of each state to a recently graduated data professional. They focus on income and job availability, housing costs (rent and owned), and tax burden')
 
 st.markdown('Use the interactive graphs below to explore data by state.')
@@ -61,7 +62,8 @@ fig3 = px.violin(salary_type_data,
                  title = 'Average Salary Distribution by Job Type Across All States'
                  )
 
-fig3.update_layout(width=1000, 
+fig3.update_layout(height=800,
+                   width=1200, 
                    plot_bgcolor="#F2EBDF"
                    )
 st.plotly_chart(fig3)
@@ -194,7 +196,8 @@ fig4.add_hrect(y0=-0.2, y1=0, line_width=0,
                annotation_position = "bottom right"
                )
 
-fig4.update_layout(width=1000, 
+fig4.update_layout(height=800,
+                   width=1200, 
                    plot_bgcolor="#F2EBDF"
                    )
 # Show the plot
@@ -240,7 +243,8 @@ fig5 = px.choropleth(data,
                     hover_data = ['Average Rent','Average Apartment Size']
                     )
 
-fig5.update_layout(width=1000,)
+fig5.update_layout(height=800,
+                   width=1200,)
 #                   plot_bgcolor="#F2EBDF")
 st.plotly_chart(fig5)
 
@@ -289,7 +293,7 @@ fig6.update_layout(title="Average Rent v. Income",
                   xaxis_title="Monthly Amount",
                   yaxis_title="State",
                   height=1200,
-                  width=800,
+                  width=1000,
                   plot_bgcolor="#F2EBDF"
                   )
 fig6.update_yaxes(autorange="reversed")
@@ -329,7 +333,8 @@ fig7 = px.scatter(data, x='All Industry Average Salary',
              title='Average Salary v. Monthly House Payment'
              )
 # Show the plot
-fig7.update_layout(width=800, 
+fig7.update_layout(height=800,
+                   width=1200, 
                    plot_bgcolor="#F2EBDF"
                    )
 st.plotly_chart(fig7)
@@ -369,8 +374,8 @@ fig8.update_layout(barmode='stack',
                    title_text='Percentage of Annual Salary Needed for Down Payment',
                    xaxis_title="State",
                    yaxis_title="Percentage %",
-                   height=600,
-                   width=800,
+                   height=800,
+                   width=1200,
                    plot_bgcolor="#F2EBDF"
                    )
 fig8.update_xaxes(tickangle=60)
