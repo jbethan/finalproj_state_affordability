@@ -99,7 +99,7 @@ fig1.update_xaxes(showticklabels=False,title_text="All Industry Average Salary",
 fig1.update_xaxes(showticklabels=False,title_text="Data Analyst Average Salary", row=1, col=2)
 fig1.update_yaxes(autorange="reversed")
 
-fig1.update_layout(width=600,
+fig1.update_layout(width=500,
                    height=1200,
                   plot_bgcolor="#F2EBDF")
 col1.plotly_chart(fig1)
@@ -135,7 +135,7 @@ fig2.update_xaxes(showticklabels=False,title_text="All Industry Average Salary",
 fig2.update_xaxes(showticklabels=False,title_text="Data Scientist Average Salary", row=1, col=2)
 fig2.update_yaxes(autorange="reversed")
 
-fig2.update_layout(width=600,
+fig2.update_layout(width=500,
                   height=1200,
                   plot_bgcolor="#F2EBDF")
 col2.plotly_chart(fig2)
@@ -217,7 +217,7 @@ data.head()
 st.header('Rent Metrics')
 
 st.subheader('Rent Data by State')
-option = st.selectbox(
+option2 = st.selectbox(
     'Select a State:',
     ('Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado','Connecticut','Delaware','Florida','Georgia',
      'Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Maryland','Massachusetts','Michigan',
@@ -225,7 +225,7 @@ option = st.selectbox(
      'North Carolina','North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania','Rhode Island','South Carolina','South Dakota',
      'Tennessee','Texas','Utah','Vermont','Virginia','Washington','West Virginia','Wisconsin','Wyoming'
 ))
-rent_data = data.loc[data['State']==option, ['State','Average Rent', 'Average Apartment Size']]
+rent_data = data.loc[data['State']==option2, ['State','Average Rent', 'Average Apartment Size']]
 rent_data.reset_index(drop=True)
 st.table(rent_data)
 
@@ -307,7 +307,7 @@ st.markdown('Financial advisors counsel that housing should only cost 30% of a h
 # Color Heat Index
 st.header('Homeowner Metrics')
 
-option = st.selectbox(
+option3 = st.selectbox(
     'Select a State:',
     ('Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado','Connecticut','Delaware','Florida','Georgia',
      'Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Maryland','Massachusetts','Michigan',
@@ -315,7 +315,7 @@ option = st.selectbox(
      'North Carolina','North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania','Rhode Island','South Carolina','South Dakota',
      'Tennessee','Texas','Utah','Vermont','Virginia','Washington','West Virginia','Wisconsin','Wyoming'
 ))
-house_data = data.loc[data['State']==option, ['State','Median House Price', 'Down Payment', 'Monthly House Payment']]
+house_data = data.loc[data['State']==option3, ['State','Median House Price', 'Down Payment', 'Monthly House Payment']]
 house_data.reset_index(drop=True)
 st.table(house_data)
 
@@ -440,7 +440,7 @@ ds_own_tax = pd.melt(ds_own_tax, id_vars=['State', 'Abbr'], value_vars=['State S
 # Data Analyst Monthly Tax Burden (Renter)
 st.header('Tax Metrics')
 st.subheader('Tax Data by State')
-option = st.selectbox(
+option4 = st.selectbox(
     'Select a State:',
     ('Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado','Connecticut','Delaware','Florida','Georgia',
      'Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Maryland','Massachusetts','Michigan',
@@ -448,7 +448,7 @@ option = st.selectbox(
      'North Carolina','North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania','Rhode Island','South Carolina','South Dakota',
      'Tennessee','Texas','Utah','Vermont','Virginia','Washington','West Virginia','Wisconsin','Wyoming'
 ))
-tx_data = data.loc[data['State']==option, ['State','Income Tax Rate','Sales Tax Rate','Property Tax Rate']]
+tx_data = data.loc[data['State']==option4, ['State','Income Tax Rate','Sales Tax Rate','Property Tax Rate']]
 tx_data.reset_index(drop=True)
 st.table(tx_data)
 
