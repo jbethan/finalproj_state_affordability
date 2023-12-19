@@ -8,6 +8,7 @@ import plotly.express as px
 from plotly.subplots import make_subplots
 from dash import Dash, dcc, html
 import plotly.figure_factory as ff
+import kaleido
 
 # %%
 data = pd.read_csv('https://raw.githubusercontent.com/jbethan/finalproj_state_affordability/main/2023_state_dataset.csv', index_col=None)
@@ -488,4 +489,6 @@ fig9.write_html('DA_Rent_Tax.html', full_html=False, include_plotlyjs='cdn')
 fig10.write_html('DA_Own_Tax.html', full_html=False, include_plotlyjs='cdn')
 fig11.write_html('DS_Rent_Tax.html', full_html=False, include_plotlyjs='cdn')
 fig12.write_html('DS_Own_Tax.html', full_html=False, include_plotlyjs='cdn')
+# %%
+fig1.write_image('DA_Income.jpg')
 # %%
