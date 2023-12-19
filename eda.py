@@ -78,7 +78,7 @@ fig1.update_layout(title_text="Salary Comparison by State for Data Analysts",
 fig1.show()
 
 # %%
-# Salary Comparison by State for Data Analysts
+# Salary Comparison by State for Data Scientists
 
 fig2 = make_subplots(rows=1, cols=2, specs=[[{}, {}]], shared_xaxes=False,
                     shared_yaxes=True, horizontal_spacing=0)
@@ -475,4 +475,17 @@ app.layout = html.Div([
 
 app.run_server(debug=True, use_reloader=False)
 
+# %%
+fig1.write_html('DA_Income.html', full_html=False, include_plotlyjs='cdn')
+fig2.write_html('DS_Income.html', full_html=False, include_plotlyjs='cdn')
+fig3.write_html('Job_Type_Salary.html', full_html=False, include_plotlyjs='cdn')
+fig4.write_html('Job_Count.html', full_html=False, include_plotlyjs='cdn')
+fig5.write_html('Rent_Map.html', full_html=False, include_plotlyjs='cdn')
+fig6.write_html('Rent_Income.html', full_html=False, include_plotlyjs='cdn')
+fig7.write_html('Mortgage_Income.html', full_html=False, include_plotlyjs='cdn')
+fig8.write_html('Down_Payment_Income.html', full_html=False, include_plotlyjs='cdn')
+fig9.write_html('DA_Rent_Tax.html', full_html=False, include_plotlyjs='cdn')
+fig10.write_html('DA_Own_Tax.html', full_html=False, include_plotlyjs='cdn')
+fig11.write_html('DS_Rent_Tax.html', full_html=False, include_plotlyjs='cdn')
+fig12.write_html('DS_Own_Tax.html', full_html=False, include_plotlyjs='cdn')
 # %%
