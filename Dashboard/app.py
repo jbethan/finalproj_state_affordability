@@ -62,7 +62,7 @@ fig3 = px.violin(salary_type_data,
                  title = 'Average Salary Distribution by Job Type Across All States'
                  )
 
-fig3.update_layout(width="100%", 
+fig3.update_layout(width=800, 
                    plot_bgcolor="#F2EBDF"
                    )
 st.plotly_chart(fig3)
@@ -100,8 +100,7 @@ fig1.update_xaxes(showticklabels=False,title_text="All Industry Average Salary",
 fig1.update_xaxes(showticklabels=False,title_text="Data Analyst Average Salary", row=1, col=2)
 fig1.update_yaxes(autorange="reversed")
 
-fig1.update_layout(width="100%", 
-                  height=1200,
+fig1.update_layout(height=1200,
                   plot_bgcolor="#F2EBDF")
 col1.plotly_chart(fig1)
 
@@ -136,8 +135,7 @@ fig2.update_xaxes(showticklabels=False,title_text="All Industry Average Salary",
 fig2.update_xaxes(showticklabels=False,title_text="Data Scientist Average Salary", row=1, col=2)
 fig2.update_yaxes(autorange="reversed")
 
-fig2.update_layout(width="100%", 
-                  height=1200,
+fig2.update_layout(height=1200,
                   plot_bgcolor="#F2EBDF")
 col2.plotly_chart(fig2)
 
@@ -195,7 +193,7 @@ fig4.add_hrect(y0=-0.2, y1=0, line_width=0,
                annotation_position = "bottom right"
                )
 
-fig4.update_layout(width="100%", 
+fig4.update_layout(width=800, 
                    plot_bgcolor="#F2EBDF"
                    )
 # Show the plot
@@ -242,7 +240,7 @@ fig5 = px.choropleth(data,
                     hover_data = ['Average Rent','Average Apartment Size']
                     )
 
-fig5.update_layout(width="100%",)
+fig5.update_layout(width=800,)
 #                   plot_bgcolor="#F2EBDF")
 st.plotly_chart(fig5)
 
@@ -291,7 +289,7 @@ fig6.update_layout(title="Average Rent v. Income",
                   xaxis_title="Monthly Amount",
                   yaxis_title="State",
                   height=1200,
-                  width="100%",
+                  width=800,
                   plot_bgcolor="#F2EBDF"
                   )
 fig6.update_yaxes(autorange="reversed")
@@ -332,7 +330,7 @@ fig7 = px.scatter(data, x='All Industry Average Salary',
              title='Average Salary v. Monthly House Payment'
              )
 # Show the plot
-fig7.update_layout(width="100%", 
+fig7.update_layout(width=800, 
                    plot_bgcolor="#F2EBDF"
                    )
 st.plotly_chart(fig7)
@@ -372,8 +370,8 @@ fig8.update_layout(barmode='stack',
                    title_text='Percentage of Annual Salary Needed for Down Payment',
                    xaxis_title="State",
                    yaxis_title="Percentage %",
-                   #height=600,
-                   width="100%",
+                   height=600,
+                   width=800,
                    plot_bgcolor="#F2EBDF"
                    )
 fig8.update_xaxes(tickangle=60)
