@@ -6,7 +6,7 @@ import plotly.graph_objects as go
 import plotly.express as px
 from plotly.subplots import make_subplots
 
-st.set_page_config(page_title="Recently Graduated Data Professional Seeks Affordable Life", layout="wide")
+st.set_page_config(page_title=None, layout="wide")
 
 st.header("Recently Graduated Data Professional Seeks Affordable Life")
 st.markdown('These data visualizations provide an exploratory of the affordability of each state to a recently graduated data professional. They focus on income and job availability, housing costs (rent and owned), and tax burden')
