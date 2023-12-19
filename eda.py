@@ -38,6 +38,10 @@ format_dict = {'Median House Price':'${0:,.0f}', 'All Industry Average Salary':'
 data.style.format(format_dict).hide_index()
 
 # %%
+income_data = data.loc[data['State']=="Alabama", ['State','Data Analyst Average Salary', 'Data Analyst Job Count as of 09/14/23', 'Data Scientist Average Salary', 'Data Scientist Job Count as of 09/14/23']]
+income_data.reset_index(drop=True)
+income_data
+# %%
 # GROUP 1 PLOT INCOME METRICS
 
 # Graphs
@@ -76,6 +80,7 @@ fig1.update_layout(title_text="Salary Comparison by State for Data Analysts",
                   width=800, 
                   height=1200,
                   plot_bgcolor="#F2EBDF")
+
 fig1.show()
 
 # %%
@@ -135,9 +140,12 @@ fig3 = px.violin(salary_type_data,
 
 fig3.update_layout(width=1200, 
                    plot_bgcolor="#F2EBDF")
+
 fig3.show()
 
-#
+# %%
+
+
 # %%
 # Stacked Salary Comparison
 #fig1 = px.scatter(data, x='State', 
@@ -192,6 +200,7 @@ fig4.add_hrect(y0=-0.2, y1=0, line_width=0,
 
 fig4.update_layout(width=800, 
                    plot_bgcolor="#F2EBDF")
+
 # Show the plot
 fig4.show()
 
@@ -267,6 +276,9 @@ fig6.update_layout(title="Average Rent v. Income",
                   plot_bgcolor="#F2EBDF"
                   )
 fig6.update_yaxes(autorange="reversed")
+fig6.add_trace(go.Scatter(y=data.State['Alabama'], mode = 'markers',
+                         marker_color = 'red',
+                         marker_size = 15))
 
 fig6.show()
 
