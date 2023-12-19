@@ -31,7 +31,7 @@ fig1 = make_subplots(rows=1, cols=2, specs=[[{}, {}]], shared_xaxes=False,
 
 fig1.append_trace(go.Bar(x=data['All Industry Average Salary'],
                      y=data['State'], 
-                     text=data["All Industry Average Salary"].style.format('${:,.0f}'), 
+                     text=data["All Industry Average Salary"], #.map('${:,.0f}'.format), 
                      textposition='inside',
                      textfont=dict(color="White"),
                      orientation='h', 
