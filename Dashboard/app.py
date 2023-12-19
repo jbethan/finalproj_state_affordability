@@ -6,7 +6,8 @@ import plotly.graph_objects as go
 import plotly.express as px
 from plotly.subplots import make_subplots
 
-st.set_page_config(page_title="Recently Graduated Data Professional Seeks Affordable Life", layout="wide")
+st.set_page_config(layout="wide")
+
 st.title="Recently Graduated Data Professional Seeks Affordable Life"
 st.markdown('These data visualizations provide an exploratory of the affordability of each state to a recently graduated data professional. They focus on income and job availability, housing costs (rent and owned), and tax burden')
 
@@ -453,7 +454,7 @@ option4 = st.selectbox(
      'North Carolina','North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania','Rhode Island','South Carolina','South Dakota',
      'Tennessee','Texas','Utah','Vermont','Virginia','Washington','West Virginia','Wisconsin','Wyoming'
 ), key='option4')
-tx_data = data.loc[data['State']==option4, ['State','Income Tax Rate','Sales Tax Rate','Property Tax Rate']]
+tx_data = data.loc[data['State']==option4, ['State','Income Tax Burden','Sales Tax Burden','Property Tax Burden']]
 tx_data.reset_index(drop=True)
 st.table(tx_data)
 
