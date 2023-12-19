@@ -64,6 +64,7 @@ cols = ['Price', 'Annual Average Wage', 'Average Hourly Wage']
 df_new[cols]= df_new[cols].replace('\$', '', regex = True)
 df_new[cols]= df_new[cols].replace(',', '', regex = True).astype(float)
 df_new = df_new.rename(columns={"Price" : "Median House Price"})
+df_new = df_new.rename(columns={"Annual Average Salary" : "All Industry Average Salary"})
 
 # %%
 # Scrape Data Analyst Average Salary by State
