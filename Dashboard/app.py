@@ -59,7 +59,7 @@ fig1.update_layout(title_text="Salary Comparison by State for Data Analysts",
                   width=800, 
                   height=1200,
                   plot_bgcolor="#F2EBDF")
-fig1.show()
+st.plotly_chart(fig1)
 
 # %%
 # Salary Comparison by State for Data Scientists
