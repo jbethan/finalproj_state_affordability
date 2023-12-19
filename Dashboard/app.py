@@ -8,7 +8,7 @@ from plotly.subplots import make_subplots
 
 st.set_page_config(page_title="Recently Graduated Data Professional Seeks Affordable Life", layout="wide")
 
-st.header="Recently Graduated Data Professional Seeks Affordable Life"
+st.header("Recently Graduated Data Professional Seeks Affordable Life")
 st.markdown('These data visualizations provide an exploratory of the affordability of each state to a recently graduated data professional. They focus on income and job availability, housing costs (rent and owned), and tax burden')
 
 st.markdown('Use the interactive graphs below to explore data by state.')
@@ -294,7 +294,7 @@ fig6.update_layout(title="Average Rent v. Income",
                   xaxis_title="Monthly Amount",
                   yaxis_title="State",
                   height=1200,
-                  width=1000,
+                  width=900,
                   plot_bgcolor="#F2EBDF"
                   )
 fig6.update_yaxes(autorange="reversed")
