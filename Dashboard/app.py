@@ -1,3 +1,4 @@
+# %%
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -18,21 +19,6 @@ data['Total Tax Burden'] = data['Total Tax Burden']/100
 data['Property Tax Burden'] = data['Property Tax Burden']/100 
 data['Income Tax Burden'] = data['Income Tax Burden']/100
 data['Sales Tax Burden'] = data['Sales Tax Burden']/100
-       
-# %%
-format_dict = {'Median House Price':'${0:,.0f}', 'All Industry Average Salary':'${0:,.0f}',
-       'Average Hourly Wage':'${0:,.0f}', 'Data Analyst Average Salary':'${0:,.0f}',
-       'Data Analyst Hourly Rate':'${0:,.0f}','Data Scientist Average Salary':'${0:,.0f}', 'Data Scientist Hourly Rate':'${0:,.0f}',
-       'Total Tax Burden': '{:.3%}','Property Tax Burden': '{:.3%}', 'Income Tax Burden': '{:.3%}', 'Sales Tax Burden': '{:.3%}',
-       'Average Rent':'${0:,.0f}', 'Mortgage Loan Amount':'${0:,.0f}',
-       'Down Payment':'${0:,.0f}','Annual Home Insurance':'${0:,.0f}', 
-       'Monthly Mortgage Cost':'${0:,.0f}', 'PMI (@1.5%)':'${0:,.0f}',
-       'Monthly House Payment':'${0:,.0f}', 'Monthly Gross Income':'${0:,.0f}',
-       'Monthly Tax Adjusted Income':'${0:,.0f}', 'Data Analyst Monthly Gross Income':'${0:,.0f}',
-       'Data Analyst Monthly Tax Adjusted Income':'${0:,.0f}',
-       'Data Scientist Monthly Gross Income':'${0:,.0f}',
-       'Data Scientist Monthly Tax Adjusted Income':'${0:,.0f}'}
-data.style.format(format_dict).hide_index()
 
 # %%
 # GROUP 1 PLOT INCOME METRICS
