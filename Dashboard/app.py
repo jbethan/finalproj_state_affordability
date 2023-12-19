@@ -31,16 +31,16 @@ data['Sales Tax Burden'] = data['Sales Tax Burden']/100
 st.header('Income Metrics')
 
 st.subheader('Income Data by State')
-option = st.selectbox(
+option1 = st.selectbox(
     'Select a State:',
     ('Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado','Connecticut','Delaware','Florida','Georgia',
      'Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Maryland','Massachusetts','Michigan',
      'Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York',
      'North Carolina','North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania','Rhode Island','South Carolina','South Dakota',
      'Tennessee','Texas','Utah','Vermont','Virginia','Washington','West Virginia','Wisconsin','Wyoming'
-))
+), key='option')
 
-income_data = data.loc[data['State']==option, ['State','Data Analyst Average Salary', 'Data Analyst Job Count as of 09/14/23', 'Data Scientist Average Salary', 'Data Scientist Job Count as of 09/14/23']]
+income_data = data.loc[data['State']==option1, ['State','Data Analyst Average Salary', 'Data Analyst Job Count as of 09/14/23', 'Data Scientist Average Salary', 'Data Scientist Job Count as of 09/14/23']]
 income_data.reset_index(drop=True)
 st.table(income_data)
 
@@ -62,7 +62,7 @@ fig3 = px.violin(salary_type_data,
                  title = 'Average Salary Distribution by Job Type Across All States'
                  )
 
-fig3.update_layout(height=800,
+fig3.update_layout(height=600,
                    width=1200, 
                    plot_bgcolor="#F2EBDF"
                    )
@@ -101,7 +101,7 @@ fig1.update_xaxes(showticklabels=False,title_text="All Industry Average Salary",
 fig1.update_xaxes(showticklabels=False,title_text="Data Analyst Average Salary", row=1, col=2)
 fig1.update_yaxes(autorange="reversed")
 
-fig1.update_layout(width=500,
+fig1.update_layout(width=600,
                    height=1200,
                   plot_bgcolor="#F2EBDF")
 col1.plotly_chart(fig1)
@@ -137,7 +137,7 @@ fig2.update_xaxes(showticklabels=False,title_text="All Industry Average Salary",
 fig2.update_xaxes(showticklabels=False,title_text="Data Scientist Average Salary", row=1, col=2)
 fig2.update_yaxes(autorange="reversed")
 
-fig2.update_layout(width=500,
+fig2.update_layout(width=600,
                   height=1200,
                   plot_bgcolor="#F2EBDF")
 col2.plotly_chart(fig2)
@@ -196,7 +196,7 @@ fig4.add_hrect(y0=-0.2, y1=0, line_width=0,
                annotation_position = "bottom right"
                )
 
-fig4.update_layout(height=800,
+fig4.update_layout(height=600,
                    width=1200, 
                    plot_bgcolor="#F2EBDF"
                    )
@@ -227,7 +227,7 @@ option2 = st.selectbox(
      'Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York',
      'North Carolina','North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania','Rhode Island','South Carolina','South Dakota',
      'Tennessee','Texas','Utah','Vermont','Virginia','Washington','West Virginia','Wisconsin','Wyoming'
-))
+), key='option2')
 rent_data = data.loc[data['State']==option2, ['State','Average Rent', 'Average Apartment Size']]
 rent_data.reset_index(drop=True)
 st.table(rent_data)
@@ -243,7 +243,7 @@ fig5 = px.choropleth(data,
                     hover_data = ['Average Rent','Average Apartment Size']
                     )
 
-fig5.update_layout(height=800,
+fig5.update_layout(height=600,
                    width=1200,)
 #                   plot_bgcolor="#F2EBDF")
 st.plotly_chart(fig5)
@@ -318,7 +318,7 @@ option3 = st.selectbox(
      'Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York',
      'North Carolina','North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania','Rhode Island','South Carolina','South Dakota',
      'Tennessee','Texas','Utah','Vermont','Virginia','Washington','West Virginia','Wisconsin','Wyoming'
-))
+), key='option3')
 house_data = data.loc[data['State']==option3, ['State','Median House Price', 'Down Payment', 'Monthly House Payment']]
 house_data.reset_index(drop=True)
 st.table(house_data)
@@ -333,7 +333,7 @@ fig7 = px.scatter(data, x='All Industry Average Salary',
              title='Average Salary v. Monthly House Payment'
              )
 # Show the plot
-fig7.update_layout(height=800,
+fig7.update_layout(height=600,
                    width=1200, 
                    plot_bgcolor="#F2EBDF"
                    )
@@ -374,7 +374,7 @@ fig8.update_layout(barmode='stack',
                    title_text='Percentage of Annual Salary Needed for Down Payment',
                    xaxis_title="State",
                    yaxis_title="Percentage %",
-                   height=800,
+                   height=600,
                    width=1200,
                    plot_bgcolor="#F2EBDF"
                    )
@@ -452,7 +452,7 @@ option4 = st.selectbox(
      'Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York',
      'North Carolina','North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania','Rhode Island','South Carolina','South Dakota',
      'Tennessee','Texas','Utah','Vermont','Virginia','Washington','West Virginia','Wisconsin','Wyoming'
-))
+), key='option4')
 tx_data = data.loc[data['State']==option4, ['State','Income Tax Rate','Sales Tax Rate','Property Tax Rate']]
 tx_data.reset_index(drop=True)
 st.table(tx_data)
