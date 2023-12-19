@@ -41,7 +41,6 @@ option = st.selectbox(
 
 income_data = data.loc[data['State']==option, ['State','Data Analyst Average Salary', 'Data Analyst Job Count as of 09/14/23', 'Data Scientist Average Salary', 'Data Scientist Job Count as of 09/14/23']]
 income_data.reset_index(drop=True)
-income_data
 st.table(income_data)
 
 salary_type_data = pd.melt(data, id_vars=['State'], value_vars=['All Industry Average Salary','Data Analyst Average Salary', 'Data Scientist Average Salary'], 
@@ -62,7 +61,7 @@ fig3 = px.violin(salary_type_data,
                  title = 'Average Salary Distribution by Job Type Across All States'
                  )
 
-fig3.update_layout(width=800, 
+fig3.update_layout(width=1000, 
                    plot_bgcolor="#F2EBDF"
                    )
 st.plotly_chart(fig3)
@@ -100,7 +99,8 @@ fig1.update_xaxes(showticklabels=False,title_text="All Industry Average Salary",
 fig1.update_xaxes(showticklabels=False,title_text="Data Analyst Average Salary", row=1, col=2)
 fig1.update_yaxes(autorange="reversed")
 
-fig1.update_layout(height=1200,
+fig1.update_layout(width=600,
+                   height=1200,
                   plot_bgcolor="#F2EBDF")
 col1.plotly_chart(fig1)
 
@@ -135,7 +135,8 @@ fig2.update_xaxes(showticklabels=False,title_text="All Industry Average Salary",
 fig2.update_xaxes(showticklabels=False,title_text="Data Scientist Average Salary", row=1, col=2)
 fig2.update_yaxes(autorange="reversed")
 
-fig2.update_layout(height=1200,
+fig2.update_layout(width=600,
+                  height=1200,
                   plot_bgcolor="#F2EBDF")
 col2.plotly_chart(fig2)
 
@@ -193,7 +194,7 @@ fig4.add_hrect(y0=-0.2, y1=0, line_width=0,
                annotation_position = "bottom right"
                )
 
-fig4.update_layout(width=800, 
+fig4.update_layout(width=1000, 
                    plot_bgcolor="#F2EBDF"
                    )
 # Show the plot
@@ -226,7 +227,6 @@ option = st.selectbox(
 ))
 rent_data = data.loc[data['State']==option, ['State','Average Rent', 'Average Apartment Size']]
 rent_data.reset_index(drop=True)
-rent_data
 st.table(rent_data)
 
 fig5 = px.choropleth(data, 
@@ -240,7 +240,7 @@ fig5 = px.choropleth(data,
                     hover_data = ['Average Rent','Average Apartment Size']
                     )
 
-fig5.update_layout(width=800,)
+fig5.update_layout(width=1000,)
 #                   plot_bgcolor="#F2EBDF")
 st.plotly_chart(fig5)
 
@@ -296,7 +296,7 @@ fig6.update_yaxes(autorange="reversed")
 
 st.plotly_chart(fig6)
 
-st.markdown('Financial advisors counsel that housing should only cost 30\% of a household monthly gross income. In fact, many apartment complexes will enforce this practice by requiring that the total gross monthly income for all adult applicants for an apartment be at least 3 times that of the monthly rent cost. If the salary marker falls within the bar there is a higher likelihood a single data professional will need a roommate to qualify for the apartment.')
+st.markdown('Financial advisors counsel that housing should only cost 30% of a household monthly gross income. In fact, many apartment complexes will enforce this practice by requiring that the total gross monthly income for all adult applicants for an apartment be at least 3 times that of the monthly rent cost. If the salary marker falls within the bar there is a higher likelihood a single data professional will need a roommate to qualify for the apartment.')
 
 # %%
 # GROUP 3 PLOT HOME OWNER METRICS
@@ -317,7 +317,6 @@ option = st.selectbox(
 ))
 house_data = data.loc[data['State']==option, ['State','Median House Price', 'Down Payment', 'Monthly House Payment']]
 house_data.reset_index(drop=True)
-house_data
 st.table(house_data)
 
 fig7 = px.scatter(data, x='All Industry Average Salary', 
@@ -377,7 +376,7 @@ fig8.update_layout(barmode='stack',
 fig8.update_xaxes(tickangle=60)
 st.plotly_chart(fig8)
 
-st.markdown('Financial advisors recommend using the 20-30-50 rule for budgeting - 20\% savings, 30\% wants, 50\% needs. If an individual is saving 20\% of their salary for a down payment, states with average down payments above the red line will require multiple years of savings.')
+st.markdown('Financial advisors recommend using the 20-30-50 rule for budgeting - 20% savings, 30% wants, 50% needs. If an individual is saving 20% of their salary for a down payment, states with average down payments above the red line will require multiple years of savings.')
 
 # %%
 # Median Income by Field needed to Afford Monthly Housing Payment
@@ -451,7 +450,6 @@ option = st.selectbox(
 ))
 tx_data = data.loc[data['State']==option, ['State','Income Tax Rate','Sales Tax Rate','Property Tax Rate']]
 tx_data.reset_index(drop=True)
-tx_data
 st.table(tx_data)
 
 
