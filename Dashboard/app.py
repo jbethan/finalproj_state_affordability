@@ -97,7 +97,7 @@ fig2.update_layout(title_text="Salary Comparison by State for Data Scientists",
                   width=800, 
                   height=1200,
                   plot_bgcolor="#F2EBDF")
-fig2.show()
+st.plotly_chart(fig2)
 
 # %%
 salary_type_data = pd.melt(data, id_vars=['State'], value_vars=['All Industry Average Salary','Data Analyst Average Salary', 'Data Scientist Average Salary'], 
@@ -118,7 +118,7 @@ fig3 = px.violin(salary_type_data,
 
 fig3.update_layout(width=1200, 
                    plot_bgcolor="#F2EBDF")
-fig3.show()
+st.plotly_chart(fig3)
 
 #
 # %%
@@ -176,7 +176,7 @@ fig4.add_hrect(y0=-0.2, y1=0, line_width=0,
 fig4.update_layout(width=800, 
                    plot_bgcolor="#F2EBDF")
 # Show the plot
-fig4.show()
+st.plotly_chart(fig4)
 
 # ON DASH ADD SLIDER
 
@@ -202,7 +202,7 @@ fig5 = px.choropleth(data,
 
 #fig5.update_layout(width=1200, 
 #                   plot_bgcolor="#F2EBDF")
-fig5.show()
+st.plotly_chart(fig5)
 
 # %%
 # Rent to Median Salary in State
@@ -251,7 +251,7 @@ fig6.update_layout(title="Average Rent v. Income",
                   )
 fig6.update_yaxes(autorange="reversed")
 
-fig6.show()
+st.plotly_chart(fig6)
 
 # %%
 # GROUP 3 PLOT HOME OWNER METRICS
@@ -271,7 +271,7 @@ fig7 = px.scatter(data, x='All Industry Average Salary',
 # Show the plot
 fig7.update_layout(width=800, 
                    plot_bgcolor="#F2EBDF")
-fig7.show()
+st.plotly_chart(fig7)
 
 # %%
 # Down Payment v Salary
@@ -311,7 +311,7 @@ fig8.update_layout(barmode='stack',
                    plot_bgcolor="#F2EBDF"
                    )
 fig8.update_xaxes(tickangle=60)
-fig8.show()
+st.plotly_chart(fig8)
 
 # %%
 # Median Income by Field needed to Afford Monthly Housing Payment
@@ -387,7 +387,7 @@ fig9.update_layout(
         angularaxis = dict(showticklabels=True)), 
 )
 
-fig9.show()
+st.plotly_chart(fig9)
 
 # %%
 # Data Analyst Monthly Tax Burden (Home Owner)
@@ -405,7 +405,7 @@ fig10.update_layout(
     ),  
 )
 
-fig10.show()
+st.plotly_chart(fig10)
 
 # %%
 # Data Scientist Monthly Tax Burden (Renter)
@@ -423,7 +423,7 @@ fig11.update_layout(
     ),  
 )
 
-fig11.show()
+st.plotly_chart(fig11)
 
 # %%
 # Data Scientist Monthly Tax Burden (Home Owner)
@@ -441,4 +441,4 @@ fig12.update_layout(
     ),  
 )
 
-fig12.show()
+st.plotly_chart(fig12)
